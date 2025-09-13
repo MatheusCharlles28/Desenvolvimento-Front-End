@@ -1,0 +1,12 @@
+<div class="card">
+  <h2>Reajuste de Saldo</h2>
+
+  <input type="number" [(ngModel)]="saldo" placeholder="Informe o saldo" />
+
+  <button (click)="calcularReajuste()">Calcular Reajuste</button>
+
+  <div *ngIf="saldoReajustado !== null">
+    <p>Saldo original: {{ saldo | currency:'BRL' }}</p>
+    <p>Saldo com reajuste: {{ saldoReajustado | currency:'BRL' }}</p>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="container">
+  <h2>Exibir Maior Valor</h2>
+ 
+  <input type="number" [(ngModel)]="numero1" placeholder="Informe um valor" />
+  <input type="number" [(ngModel)]="numero2" placeholder="Informe outro valor" />
+  <button (click)="calcularMaiorValor()">Calcular Maior Valor</button>
+  
+  <div *ngIf="resultadoCalculado" class="resultado">
+    <p><strong>{{ mensagemResultado }}</strong></p>
+    <p class="maior-valor">Maior valor: {{ maiorValor | currency:'BRL':'symbol':'1.2-2':'pt' }}</p>
+  </div>
+</div>

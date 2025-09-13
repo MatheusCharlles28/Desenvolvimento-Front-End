@@ -1,0 +1,95 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h2>Calculadora de Médias</h2>
+      <p>Digite 3 números para calcular diferentes tipos de médias</p>
+    </div>
+
+    <div class="card-body">
+      <div class="form-section">
+        <h3>Entrada de Dados</h3>
+
+        <div class="input-group">
+          <label for="num1">Primeiro número:</label>
+          <input
+            type="number"
+            id="num1"
+            [(ngModel)]="num1"
+            placeholder="Digite o primeiro número"
+            class="form-control"
+          />
+        </div>
+
+        <div class="input-group">
+          <label for="num2">Segundo número:</label>
+          <input
+            type="number"
+            id="num2"
+            [(ngModel)]="num2"
+            placeholder="Digite o segundo número"
+            class="form-control"
+          />
+        </div>
+
+        <div class="input-group">
+          <label for="num3">Terceiro número:</label>
+          <input
+            type="number"
+            id="num3"
+            [(ngModel)]="num3"
+            placeholder="Digite o terceiro número"
+            class="form-control"
+          />
+        </div>
+
+        <div class="button-group">
+          <button (click)="calcularMedias()" class="btn btn-primary">
+            Calcular Médias
+          </button>
+
+          <button (click)="limparCampos()" class="btn btn-secondary">
+            Limpar
+          </button>
+        </div>
+      </div>
+
+      <div class="results-section" *ngIf="resultadosCalculados">
+        <h3>Resultados</h3>
+
+        <div class="numbers-display">
+          <strong>Números digitados:</strong> {{num1}}, {{num2}}, {{num3}}
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">a) Média aritmética:</span>
+          <span class="result-value">{{mediaAritmetica | number:'1.2-2'}}</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">b) Média ponderada (pesos 3, 2, 5):</span>
+          <span class="result-value">{{mediaPonderada | number:'1.2-2'}}</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">c) Soma das duas médias:</span>
+          <span class="result-value">{{somaMedias | number:'1.2-2'}}</span>
+        </div>
+
+        <div class="result-item highlight">
+          <span class="result-label">d) Média das médias:</span>
+          <span class="result-value">{{mediaDasMedias | number:'1.2-2'}}</span>
+        </div>
+
+        <div class="formulas-section">
+          <h4>Fórmulas utilizadas:</h4>
+          <ul>
+            <li><strong>Média aritmética:</strong> (n₁ + n₂ + n₃) ÷ 3</li>
+            <li><strong>Média ponderada:</strong> (n₁×3 + n₂×2 + n₃×5) ÷ 10</li>
+            <li><strong>Soma das médias:</strong> MA + MP</li>
+            <li><strong>Média das médias:</strong> (MA + MP) ÷ 2</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
