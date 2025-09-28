@@ -1,0 +1,15 @@
+<div class="professores-container">
+  <h1>Lista de Professores</h1>
+  
+  <div class="professores-lista">
+    <div *ngFor="let professor of professores" class="professor-item">
+      <h3>{{ professor }}</h3>
+    </div>
+  </div>
+  
+  <button (click)="verDetalhes()" class="btn btn-detalhes">
+    Ver Detalhes do Professor
+  </button>
+  
+  <router-outlet></router-outlet>
+</div>

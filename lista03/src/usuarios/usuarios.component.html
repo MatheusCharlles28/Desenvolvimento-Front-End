@@ -1,0 +1,15 @@
+<div class="usuarios-container">
+  <h2>Lista de Usuários</h2>
+  
+  <div class="usuarios-lista">
+    <div *ngFor="let usuario of usuarios" class="usuario-item">
+      {{ usuario }}
+    </div>
+  </div>
+  
+  <button (click)="verDetalhes()" class="btn btn-detalhes">
+    Ver Detalhes
+  </button>
+  
+  <router-outlet></router-outlet>
+</div>
