@@ -1,0 +1,22 @@
+.dashboard {
+  text-align: center;
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.card {
+  padding: 20px;
+  border-radius: 8px;
+  color: #fff;
+  min-width: 150px;
+}
+
+.card.receita { background: #4caf50; }
+.card.despesa { background: #f44336; }
+.card.saldo.positivo { background: #2196f3; }
+.card.saldo.negativo { background: #9c27b0; }

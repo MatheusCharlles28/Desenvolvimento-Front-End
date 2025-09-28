@@ -1,0 +1,111 @@
+<div class="cadastro-receita-container">
+  <h2>Cadastro de Receitas</h2>
+
+  <div class="formulario-container">
+    <h3>Adicionar Nova Receita</h3>
+    
+    <form (ngSubmit)="adicionarReceita()" #receitaForm="ngForm" class="receita-form">
+      <div class="form-group">
+        <label for="descricao">Descrição:</label>
+        <input 
+          type="text" 
+          id="descricao"
+          name="descricao"
+          [(ngModel)]="descricao"
+          placeholder="Ex: Salário do mês, Projeto freelance..."
+          maxlength="100"
+          required
+          class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="valor">Valor (R$):</label>
+        <input 
+          type="number" 
+          id="valor"
+          name="valor"
+          [(ngModel)]="valor"
+          placeholder="0.00"
+          min="0.01"
+          step="0.01"
+          required
+          class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="categoria">Categoria:</label>
+        <select 
+          id="categoria"
+          name="categoria"
+          [(ngModel)]="categoria"
+          required
+          class="form-control">
+          <option value="">Selecione uma categoria</option>
+          <option *ngFor="let cat of categoriasSugeridas" [value]="cat">
+            {{ cat | titlecase }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-actions">
+        <button 
+          type="submit" 
+          class="btn btn-primary"
+          [disabled]="!receitaForm.form.valid">
+          Adicionar Receita
+        </button>
+        
+        <button 
+          type="button" 
+          class="btn btn-secondary"
+          (click)="limparFormulario()">
+          Limpar
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="resumo-container" *ngIf="receitas.length > 0">
+    <h3>Resumo</h3>
+    <div class="resumo-card">
+      <div class="resumo-item">
+        <span class="label">Total de receitas:</span>
+        <span class="valor-total">{{ formatarValor(obterTotalReceitas()) }}</span>
+      </div>
+      <div class="resumo-item">
+        <span class="label">Quantidade:</span>
+        <span class="quantidade">{{ receitas.length }} receita(s)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="lista-container" *ngIf="receitas.length > 0">
+    <h3>Minhas Receitas</h3>
+    
+    <div class="receitas-grid">
+      <div *ngFor="let receita of receitas" class="receita-card">
+        <div class="receita-header">
+          <span class="receita-categoria">{{ receita.categoria | titlecase }}</span>
+          <button 
+            class="btn-remover"
+            (click)="removerReceita(receita.id)"
+            title="Remover receita">
+            ✕
+          </button>
+        </div>
+        
+        <div class="receita-body">
+          <h4 class="receita-descricao">{{ receita.descricao }}</h4>
+          <div class="receita-valor">{{ formatarValor(receita.valor) }}</div>
+          <div class="receita-data">{{ formatarData(receita.dataInclusao) }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vazio-container" *ngIf="receitas.length === 0">
+    <div class="vazio-card">
+      <h3>Nenhuma receita cadastrada</h3>
+      <p>Comece adicionando sua primeira receita usando o formulário acima!</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,255 @@
+<div class="lista-financas-container">
+  <h2>Lista de Receitas e Despesas</h2>
+
+  <div class="resumo-geral">
+    <div class="card-resumo receitas">
+      <h3>Total Receitas</h3>
+      <span class="valor">{{ formatarValor(obterTotalReceitas()) }}</span>
+    </div>
+    <div class="card-resumo despesas">
+      <h3>Total Despesas</h3>
+      <span class="valor">{{ formatarValor(obterTotalDespesas()) }}</span>
+    </div>
+    <div
+      class="card-resumo saldo"
+      [ngClass]="{ positivo: obterSaldo() >= 0, negativo: obterSaldo() < 0 }"
+    >
+      <h3>Saldo</h3>
+      <span class="valor">{{ formatarValor(obterSaldo()) }}</span>
+    </div>
+  </div>
+
+  <div class="secao-receitas">
+    <div class="secao-header">
+      <h3>Receitas</h3>
+      <div class="filtro-container">
+        <input
+          type="text"
+          [(ngModel)]="filtroReceitas"
+          placeholder="Filtrar por descrição..."
+          class="filtro-input"
+        />
+      </div>
+    </div>
+
+    <div class="tabela-container">
+      <table class="tabela-receitas">
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Categoria</th>
+            <th>Valor</th>
+            <th>Data</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let receita of receitasFiltradas"
+            [ngClass]="{ editando: receitaEditando?.id === receita.id }"
+          >
+            <ng-container *ngIf="receitaEditando?.id !== receita.id">
+              <td>{{ receita.descricao }}</td>
+              <td>
+                <span class="categoria-tag receita">{{
+                  receita.categoria | titlecase
+                }}</span>
+              </td>
+              <td class="valor-receita">{{ formatarValor(receita.valor) }}</td>
+              <td>{{ formatarData(receita.dataInclusao) }}</td>
+              <td class="acoes">
+                <button
+                  class="btn-editar"
+                  (click)="editarReceita(receita)"
+                  title="Editar"
+                >
+                  ✏️
+                </button>
+                <button
+                  class="btn-excluir"
+                  (click)="excluirReceita(receita.id)"
+                  title="Excluir"
+                >
+                  🗑️
+                </button>
+              </td>
+            </ng-container>
+
+            <ng-container *ngIf="receitaEditando?.id === receita.id">
+              <td>
+                <input
+                  type="text"
+                  [(ngModel)]="receitaEditando!.descricao"
+                  class="input-edicao"
+                />
+              </td>
+              <td>
+                <select
+                  [(ngModel)]="receitaEditando!.categoria"
+                  class="select-edicao"
+                >
+                  <option *ngFor="let cat of categoriasReceitas" [value]="cat">
+                    {{ cat | titlecase }}
+                  </option>
+                </select>
+              </td>
+              <td>
+                <input
+                  type="number"
+                  [(ngModel)]="receitaEditando!.valor"
+                  min="0.01"
+                  step="0.01"
+                  class="input-edicao input-valor"
+                />
+              </td>
+              <td>{{ formatarData(receita.dataInclusao) }}</td>
+              <td class="acoes">
+                <button
+                  class="btn-salvar"
+                  (click)="salvarReceita()"
+                  title="Salvar"
+                >
+                  ✅
+                </button>
+                <button
+                  class="btn-cancelar"
+                  (click)="cancelarEdicaoReceita()"
+                  title="Cancelar"
+                >
+                  ❌
+                </button>
+              </td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="vazio" *ngIf="receitasFiltradas.length === 0">
+        <p>
+          {{
+            filtroReceitas
+              ? 'Nenhuma receita encontrada com esse filtro.'
+              : 'Nenhuma receita cadastrada.'
+          }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="secao-despesas">
+    <div class="secao-header">
+      <h3>Despesas</h3>
+      <div class="filtro-container">
+        <input
+          type="text"
+          [(ngModel)]="filtroDespesas"
+          placeholder="Filtrar por descrição..."
+          class="filtro-input"
+        />
+      </div>
+    </div>
+
+    <div class="tabela-container">
+      <table class="tabela-despesas">
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Categoria</th>
+            <th>Valor</th>
+            <th>Data</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let despesa of despesasFiltradas"
+            [ngClass]="{ editando: despesaEditando?.id === despesa.id }"
+          >
+            <ng-container *ngIf="despesaEditando?.id !== despesa.id">
+              <td>{{ despesa.descricao }}</td>
+              <td>
+                <span class="categoria-tag despesa">{{
+                  despesa.categoria | titlecase
+                }}</span>
+              </td>
+              <td class="valor-despesa">{{ formatarValor(despesa.valor) }}</td>
+              <td>{{ formatarData(despesa.dataInclusao) }}</td>
+              <td class="acoes">
+                <button
+                  class="btn-editar"
+                  (click)="editarDespesa(despesa)"
+                  title="Editar"
+                >
+                  ✏️
+                </button>
+                <button
+                  class="btn-excluir"
+                  (click)="excluirDespesa(despesa.id)"
+                  title="Excluir"
+                >
+                  🗑️
+                </button>
+              </td>
+            </ng-container>
+
+            <ng-container *ngIf="despesaEditando?.id === despesa.id">
+              <td>
+                <input
+                  type="text"
+                  [(ngModel)]="despesaEditando!.descricao"
+                  class="input-edicao"
+                />
+              </td>
+              <td>
+                <select
+                  [(ngModel)]="despesaEditando!.categoria"
+                  class="select-edicao"
+                >
+                  <option *ngFor="let cat of categoriasDespesas" [value]="cat">
+                    {{ cat | titlecase }}
+                  </option>
+                </select>
+              </td>
+              <td>
+                <input
+                  type="number"
+                  [(ngModel)]="despesaEditando!.valor"
+                  min="0.01"
+                  step="0.01"
+                  class="input-edicao input-valor"
+                />
+              </td>
+              <td>{{ formatarData(despesa.dataInclusao) }}</td>
+              <td class="acoes">
+                <button
+                  class="btn-salvar"
+                  (click)="salvarDespesa()"
+                  title="Salvar"
+                >
+                  ✅
+                </button>
+                <button
+                  class="btn-cancelar"
+                  (click)="cancelarEdicaoDespesa()"
+                  title="Cancelar"
+                >
+                  ❌
+                </button>
+              </td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="vazio" *ngIf="despesasFiltradas.length === 0">
+        <p>
+          {{
+            filtroDespesas
+              ? 'Nenhuma despesa encontrada com esse filtro.'
+              : 'Nenhuma despesa cadastrada.'
+          }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,112 @@
+<div class="cadastro-despesa-container">
+<h2>Cadastro de Despesas</h2>
+
+<div class="formulario-container">
+  <h3>Adicionar Nova Despesa</h3>
+  
+  <form (ngSubmit)="adicionarDespesa()" #despesaForm="ngForm" class="despesa-form">
+    <div class="form-group">
+      <label for="descricao">Descrição:</label>
+      <input 
+        type="text" 
+        id="descricao"
+        name="descricao"
+        [(ngModel)]="descricao"
+        placeholder="Ex: Supermercado, Combustível, Aluguel..."
+        maxlength="100"
+        required
+        class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="valor">Valor (R$):</label>
+      <input 
+        type="number" 
+        id="valor"
+        name="valor"
+        [(ngModel)]="valor"
+        placeholder="0.00"
+        min="0.01"
+        step="0.01"
+        required
+        class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="categoria">Categoria:</label>
+      <select 
+        id="categoria"
+        name="categoria"
+        [(ngModel)]="categoria"
+        required
+        class="form-control">
+        <option value="">Selecione uma categoria</option>
+        <option *ngFor="let cat of categoriasSugeridas" [value]="cat">
+          {{ cat | titlecase }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-actions">
+      <button 
+        type="submit" 
+        class="btn btn-primary"
+        [disabled]="!despesaForm.form.valid">
+        Adicionar Despesa
+      </button>
+      
+      <button 
+        type="button" 
+        class="btn btn-secondary"
+        (click)="limparFormulario()">
+        Limpar
+      </button>
+    </div>
+  </form>
+</div>
+
+<div class="resumo-container" *ngIf="despesas.length > 0">
+  <h3>Resumo</h3>
+  <div class="resumo-card">
+    <div class="resumo-item">
+      <span class="label">Total de despesas:</span>
+      <span class="valor-total">{{ formatarValor(obterTotalDespesas()) }}</span>
+    </div>
+    <div class="resumo-item">
+      <span class="label">Quantidade:</span>
+      <span class="quantidade">{{ despesas.length }} despesa(s)</span>
+    </div>
+  </div>
+</div>
+
+<div class="lista-container" *ngIf="despesas.length > 0">
+  <h3>Minhas Despesas</h3>
+  
+  <div class="despesas-grid">
+    <div *ngFor="let despesa of despesas" class="despesa-card">
+      <div class="despesa-header">
+        <span class="despesa-categoria">{{ despesa.categoria | titlecase }}</span>
+        <button 
+          class="btn-remover"
+          (click)="removerDespesa(despesa.id)"
+          title="Remover despesa">
+          ✕
+        </button>
+      </div>
+      
+      <div class="despesa-body">
+        <h4 class="despesa-descricao">{{ despesa.descricao }}</h4>
+        <div class="despesa-valor">{{ formatarValor(despesa.valor) }}</div>
+        <div class="despesa-data">{{ formatarData(despesa.dataInclusao) }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="vazio-container" *ngIf="despesas.length === 0">
+  <div class="vazio-card">
+    <h3>Nenhuma despesa cadastrada</h3>
+    <p>Comece adicionando sua primeira despesa usando o formulário acima!</p>
+  </div>
+</div>
+</div>
