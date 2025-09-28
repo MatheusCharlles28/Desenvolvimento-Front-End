@@ -1,0 +1,41 @@
+.relatorios-container {
+  text-align: center;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.menu-relatorios {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-vendas {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-vendas:hover {
+  background-color: #c82333;
+}
+
+.btn-estoque {
+  background-color: #fd7e14;
+  color: white;
+}
+
+.btn-estoque:hover {
+  background-color: #e8590c;
+}

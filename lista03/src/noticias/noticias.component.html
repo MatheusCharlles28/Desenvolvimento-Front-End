@@ -1,0 +1,13 @@
+<div class="noticias-container">
+  <h1>Notícias</h1>
+  
+  <div class="manchetes-lista">
+    <div *ngFor="let manchete of manchetes" class="manchete-item">
+      <h3>{{ manchete }}</h3>
+    </div>
+  </div>
+  
+  <button (click)="lerMais()" class="btn btn-ler-mais">
+    Ler mais
+  </button>
+</div>

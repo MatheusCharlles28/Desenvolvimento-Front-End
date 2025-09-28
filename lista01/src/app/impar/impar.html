@@ -1,0 +1,13 @@
+<div class="container">
+  <h2>Verificar se é Ímpar</h2>
+ 
+  <input type="number" [(ngModel)]="numero" placeholder="Informe um número" />
+  <button (click)="verificarImpar()">Verificar</button>
+  
+  <div *ngIf="resultadoCalculado" class="resultado">
+    <p>Número digitado: <strong>{{ numero }}</strong></p>
+    <p class="resultado-tipo" [class.par]="tipoNumero === 'par'" [class.impar]="tipoNumero === 'impar'">
+      {{ mensagemResultado }}
+    </p>
+    </div>
+  </div>

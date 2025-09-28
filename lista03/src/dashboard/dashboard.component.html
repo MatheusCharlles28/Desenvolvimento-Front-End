@@ -1,0 +1,16 @@
+<div class="dashboard-container">
+  <h1>Dashboard Administrativo</h1>
+  
+  <div class="menu-principal">
+    <button (click)="navegarPara('/dashboard/usuarios')" class="btn btn-usuarios">
+      Usuários
+    </button>
+    <button (click)="navegarPara('/dashboard/relatorios')" class="btn btn-relatorios">
+      Relatórios
+    </button>
+  </div>
+  
+  <div class="conteudo">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="dashboard">
+  <h2>Resumo do Orçamento</h2>
+  <div class="cards">
+    <div class="card receita">
+      <h3>Receitas</h3>
+      <p>{{ formatarValor(totalReceitas) }}</p>
+    </div>
+    <div class="card despesa">
+      <h3>Despesas</h3>
+      <p>{{ formatarValor(totalDespesas) }}</p>
+    </div>
+    <div class="card saldo" [ngClass]="saldo >= 0 ? 'positivo' : 'negativo'">
+      <h3>Saldo Final</h3>
+      <p>{{ formatarValor(saldo) }}</p>
+    </div>
+  </div>
+</div>
